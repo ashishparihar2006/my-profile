@@ -1,15 +1,1044 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" class="scroll-smooth">
 <head>
-<title>My Profile</title>
-<style>body { font-family: sans-serif; background-color: #f0f0f0; text-align: center; }</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  
+  <!-- Primary Meta Tags -->
+  <title>Ashish Parihar | CS Undergrad, Developer & National Fencing Medalist</title>
+  <meta name="title" content="Ashish Parihar | CS Undergrad, Developer & National Fencing Medalist">
+  <meta name="description" content="Personal portfolio of Ashish Parihar - First-year Computer Science Student, Aspiring Software Developer, Terminal & Automation Enthusiast, and 2-Time National Fencing Medalist.">
+  <meta name="keywords" content="Ashish Parihar, Software Developer, Computer Science, Python, JavaScript, Linux, Terminal, Fencing, Khelo MP, Portfolio">
+  <meta name="author" content="Ashish Parihar">
+  <meta name="theme-color" content="#0D0F12">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230D0F12'/><text x='50%' y='55%' dominant-baseline='central' text-anchor='middle' font-family='monospace' font-size='50' font-weight='bold' fill='%2300F2FE'>&gt;_</text></svg>">
+  
+  <!-- Google Fonts: Space Grotesk (Display) & JetBrains Mono (Code/Terminal) & Inter (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-<h1>Hello, I am Ashish parihar</h1>
-<p>I am learning Git today.</p>
-<p>My favourite Git command so far: git status</p>
+<body class="bg-base text-main selection:bg-cyan selection:text-black antialiased">
+  <!-- Interactive Cyber Background Canvas -->
+  <canvas id="cyber-canvas" class="fixed inset-0 pointer-events-none z-0" aria-hidden="true"></canvas>
+
+  <!-- Cyber Grid Scanline Overlay (Subtle) -->
+  <div class="cyber-scanlines pointer-events-none" aria-hidden="true"></div>
+
+  <!-- Announcement / Status Ticker Bar -->
+  <aside class="top-status-bar" aria-label="Availability Status">
+    <div class="container flex-between py-1 px-4 text-xs">
+      <div class="status-indicator">
+        <span class="status-dot pulse"></span>
+        <span class="status-text"><strong class="text-cyan">STATUS:</strong> Available for Summer Internships &amp; Open-Source Projects</span>
+      </div>
+      <div class="status-meta hide-mobile font-mono">
+        <span id="live-clock">UTC 00:00:00</span>
+        <span class="divider">|</span>
+        <span class="text-muted">LOC: India [IST]</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Primary Sticky Navigation -->
+  <header id="site-header" class="site-header sticky top-0 z-50">
+    <nav class="container nav-wrapper" aria-label="Main Navigation">
+      <!-- Brand Monogram -->
+      <a href="#hero" class="nav-brand group" aria-label="Ashish Parihar Homepage">
+        <span class="brand-terminal-badge">&gt;_</span>
+        <span class="brand-text">
+          <span class="brand-name">ASHISH<span class="text-cyan">.PARIHAR</span></span>
+          <span class="brand-sub">DEV // ATHLETE</span>
+        </span>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <ul class="nav-links hide-mobile" role="list">
+        <li><a href="#about" class="nav-link"><span class="nav-num">01.</span> About</a></li>
+        <li><a href="#skills" class="nav-link"><span class="nav-num">02.</span> Skills</a></li>
+        <li><a href="#projects" class="nav-link"><span class="nav-num">03.</span> Projects</a></li>
+        <li><a href="#athletics" class="nav-link"><span class="nav-num">04.</span> Athletics</a></li>
+        <li><a href="#contact" class="nav-link"><span class="nav-num">05.</span> Contact</a></li>
+      </ul>
+
+      <!-- Nav CTA & Controls -->
+      <div class="nav-actions flex items-center gap-3">
+        <!-- Quick Terminal Focus Trigger -->
+        <button id="nav-term-btn" class="btn-term-shortcut" title="Focus interactive terminal (Shortcut: T)" aria-label="Jump to interactive terminal">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          </svg>
+          <span class="hide-mobile">Terminal</span>
+          <kbd class="kbd-hint hide-mobile">T</kbd>
+        </button>
+
+        <a href="#contact" class="btn btn-sm btn-primary hide-mobile">
+          <span>Get in Touch</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+          </svg>
+        </a>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button id="mobile-menu-toggle" class="mobile-toggle show-mobile" aria-expanded="false" aria-controls="mobile-nav-menu" aria-label="Toggle navigation menu">
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile Drawer Menu -->
+    <div id="mobile-nav-menu" class="mobile-menu" aria-hidden="true">
+      <div class="mobile-menu-inner">
+        <div class="mobile-menu-header">
+          <span class="font-mono text-cyan text-sm">&gt; NAVIGATION_MENU</span>
+          <span class="text-xs text-muted">v1.0.4</span>
+        </div>
+        <ul class="mobile-nav-links" role="list">
+          <li><a href="#about" class="mobile-link"><span class="text-cyan font-mono">01.</span> About Me</a></li>
+          <li><a href="#skills" class="mobile-link"><span class="text-cyan font-mono">02.</span> Core Competencies</a></li>
+          <li><a href="#projects" class="mobile-link"><span class="text-cyan font-mono">03.</span> Featured Projects</a></li>
+          <li><a href="#athletics" class="mobile-link"><span class="text-cyan font-mono">04.</span> Distinctions &amp; Athletics</a></li>
+          <li><a href="#contact" class="mobile-link"><span class="text-cyan font-mono">05.</span> Contact &amp; Connect</a></li>
+        </ul>
+        <div class="mobile-menu-footer">
+          <a href="#contact" class="btn btn-primary w-full text-center">Initiate Connection</a>
+          <p class="text-xs text-muted text-center mt-3 font-mono">Ashish Parihar &bull; CS '28</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" class="relative z-10">
+    <!-- ========================================================
+         HERO SECTION: Live Interactive Terminal & Headline
+         ======================================================== -->
+    <section id="hero" class="hero-section" aria-label="Introduction & Interactive Terminal">
+      <div class="container hero-grid">
+        
+        <!-- Left Column: High-Impact Typography & Action CTAs -->
+        <div class="hero-content">
+          <div class="hero-badge-wrap">
+            <span class="hero-badge font-mono">
+              <span class="pulse-cyan"></span>
+              FIRST-YEAR CS UNDERGRAD &bull; ATHLETE
+            </span>
+          </div>
+
+          <h1 class="hero-title">
+            Engineering Software &amp;
+            <span class="gradient-text">Solving Complex Problems.</span>
+          </h1>
+
+          <p class="hero-subtitle">
+            I build robust software at the intersection of mathematical logic, Unix terminal automation, and modern web architectures. Channeling the precision, split-second tactical reflexes, and discipline of competitive fencing into clean, efficient engineering.
+          </p>
+
+          <!-- Quick Action CTAs -->
+          <div class="hero-actions">
+            <a href="#projects" class="btn btn-primary btn-glow">
+              <span>View Projects</span>
+              <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+              </svg>
+            </a>
+            <a href="#contact" class="btn btn-outline">
+              <span>Contact Me</span>
+              <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+              </svg>
+            </a>
+          </div>
+
+          <!-- Key Highlights / Stat Pills -->
+          <div class="hero-stats-row">
+            <div class="hero-stat-card">
+              <span class="stat-number text-cyan">2x</span>
+              <span class="stat-label">National Fencing Medalist</span>
+            </div>
+            <div class="hero-stat-card">
+              <span class="stat-number text-emerald">1st Yr</span>
+              <span class="stat-label">Computer Science Student</span>
+            </div>
+            <div class="hero-stat-card">
+              <span class="stat-number text-purple">100%</span>
+              <span class="stat-label">Logic &amp; Automation Passion</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Interactive Embedded Terminal Window -->
+        <div class="hero-terminal-wrapper">
+          <div class="terminal-window" id="interactive-terminal" role="region" aria-label="Interactive Terminal Emulator">
+            <!-- Window Title Bar -->
+            <div class="terminal-header">
+              <div class="terminal-traffic-lights" aria-hidden="true">
+                <span class="window-dot dot-red" title="Close"></span>
+                <span class="window-dot dot-yellow" title="Minimize"></span>
+                <span class="window-dot dot-green" title="Maximize"></span>
+              </div>
+              <div class="terminal-title">
+                <svg class="w-3.5 h-3.5 inline mr-1 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                ashish@fedora: ~ (zsh)
+              </div>
+              <div class="terminal-controls">
+                <button id="term-audio-toggle" class="term-ctrl-btn" title="Toggle Terminal Sound Effects" aria-label="Toggle terminal audio feedback">
+                  <span id="audio-icon">🔇</span>
+                </button>
+                <button id="term-clear-btn" class="term-ctrl-btn" title="Clear Terminal (or type 'clear')" aria-label="Clear terminal output">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Terminal Output Buffer -->
+            <div class="terminal-body" id="terminal-body" tabindex="0" aria-live="polite">
+              <div class="terminal-welcome">
+                <pre class="terminal-ascii-banner">
+   ___   _____ __  _____________  ___  ___  ___  ________  ___  ___
+  / _ | / __// / / /  _/ __/ // / / _ \/ _ | / _ \/  _/ // / / _ | / _ \
+ / __ |_\ \ / _  /_/ /_\ \/ _  / / ___/ __ |/ , _// // _  / / __ |/ , _/
+/_/ |_/___//_//_/___/___/_//_/ /_/  /_/ |_/_/|_/___/_//_/ /_/ |_/_/|_|  
+                </pre>
+                <p class="text-cyan font-mono font-bold text-xs mb-1">&gt; ASHISH PARIHAR // PORTFOLIO SHELL v1.4.0</p>
+                <p class="text-xs text-muted mb-2 font-mono">Welcome to my terminal! Type a command or click any shortcut chip below to explore my profile.</p>
+                <div class="term-help-reminder font-mono text-xs">
+                  Available commands: <span class="cmd-highlight">help</span>, <span class="cmd-highlight">skills</span>, <span class="cmd-highlight">projects</span>, <span class="cmd-highlight">fencing</span>, <span class="cmd-highlight">contact</span>, <span class="cmd-highlight">about</span>, <span class="cmd-highlight">clear</span>
+                </div>
+              </div>
+
+              <!-- Dynamic Output Appends Here -->
+              <div id="terminal-history"></div>
+
+              <!-- Active Command Input Line -->
+              <div class="terminal-prompt-line">
+                <span class="prompt-user text-cyan font-bold font-mono">ashish@portfolio</span><span class="prompt-colon text-muted">:</span><span class="prompt-path text-purple font-mono">~</span><span class="prompt-symbol font-bold font-mono text-cyan">$</span>
+                <input type="text" id="terminal-input" class="terminal-input" spellcheck="false" autocomplete="off" autocapitalize="off" aria-label="Terminal command input" placeholder="type 'help'...">
+              </div>
+            </div>
+
+            <!-- Quick Action Chips (Tap-to-run on mobile or desktop) -->
+            <div class="terminal-quick-chips" aria-label="Terminal Quick Commands">
+              <span class="chip-label text-muted text-xs font-mono">Quick Run:</span>
+              <button class="cmd-chip" data-cmd="help">help</button>
+              <button class="cmd-chip" data-cmd="skills">skills</button>
+              <button class="cmd-chip" data-cmd="projects">projects</button>
+              <button class="cmd-chip" data-cmd="fencing">fencing</button>
+              <button class="cmd-chip" data-cmd="about">about</button>
+              <button class="cmd-chip" data-cmd="contact">contact</button>
+              <button class="cmd-chip chip-clear" data-cmd="clear">clear</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================
+         ABOUT SECTION: Philosophy, Discipline & Interdisciplinary Mindset
+         ======================================================== -->
+    <section id="about" class="section-padding" aria-label="About Ashish Parihar">
+      <div class="container">
+        
+        <div class="section-header">
+          <div class="section-tag font-mono">&gt; 01. IDENTITY &amp; MINDSET</div>
+          <h2 class="section-title">Where Code Meets Competitive Discipline</h2>
+          <p class="section-desc">
+            Bridging analytical computer science with athletic tenacity to solve demanding computational problems.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <!-- Main Narrative Card -->
+          <article class="spotlight-card about-main-card">
+            <div class="card-glow-border"></div>
+            <div class="card-inner">
+              <div class="card-badge font-mono text-xs text-cyan">
+                <span class="code-bracket">&lt;</span>PHILOSOPHY<span class="code-bracket">/&gt;</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-3">
+                Precision in the Terminal. Focus on the Strip.
+              </h3>
+              <p class="text-secondary leading-relaxed mb-4">
+                As a first-year Computer Science student, my fascination lies in the raw power of deterministic logic: how a well-structured Python algorithm, a clean Unix script, or a high-performance web component can eliminate friction and solve tangible bottlenecks.
+              </p>
+              <p class="text-secondary leading-relaxed mb-4">
+                Simultaneously, competing as a <strong class="text-white">2-Time National Medalist</strong> and <strong class="text-white">Khelo MP Bronze Medalist in Fencing</strong> has deeply sculpted my cognitive wiring. Fencing is physical chess at lightning speed: every offensive riposte requires anticipating an opponent’s edge cases, maintaining composure under intense pressure, and executing with millimeter accuracy.
+              </p>
+              <p class="text-secondary leading-relaxed">
+                I bring that exact relentless discipline to software development—whether that means architecting discrete math tools, automating tedious command-line tasks, or debugging complex logic till midnight.
+              </p>
+
+              <div class="mt-6 pt-5 border-t border-subtle flex flex-wrap gap-4 items-center justify-between text-xs font-mono">
+                <span class="text-cyan flex items-center gap-1.5">
+                  <span class="bullet-dot"></span> Unix &amp; Automation Enthusiast
+                </span>
+                <span class="text-emerald flex items-center gap-1.5">
+                  <span class="bullet-dot bg-emerald"></span> Algorithmic Thinker
+                </span>
+                <span class="text-purple flex items-center gap-1.5">
+                  <span class="bullet-dot bg-purple"></span> National Athlete
+                </span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Side Highlight Cards -->
+          <div class="about-side-stack">
+            <!-- Terminal Automation Callout -->
+            <div class="spotlight-card mini-info-card">
+              <div class="card-glow-border"></div>
+              <div class="card-inner">
+                <div class="icon-circle text-cyan mb-3">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                  </svg>
+                </div>
+                <h4 class="font-bold text-white mb-1">Terminal First Mentality</h4>
+                <p class="text-xs text-secondary leading-relaxed">
+                  Believer in CLI speed, automated zsh workflows, Git hygiene, and composable command-line tooling that scales.
+                </p>
+              </div>
+            </div>
+
+            <!-- Mathematical Logic Callout -->
+            <div class="spotlight-card mini-info-card">
+              <div class="card-glow-border"></div>
+              <div class="card-inner">
+                <div class="icon-circle text-emerald mb-3">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                  </svg>
+                </div>
+                <h4 class="font-bold text-white mb-1">Logic &amp; Discrete Math</h4>
+                <p class="text-xs text-secondary leading-relaxed">
+                  Deeply passionate about truth tables, Boolean algebra, graph structures, algorithm time-complexity, and discrete foundations.
+                </p>
+              </div>
+            </div>
+
+            <!-- Athletic Rigor Callout -->
+            <div class="spotlight-card mini-info-card">
+              <div class="card-glow-border"></div>
+              <div class="card-inner">
+                <div class="icon-circle text-purple mb-3">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                  </svg>
+                </div>
+                <h4 class="font-bold text-white mb-1">Competitive Resilience</h4>
+                <p class="text-xs text-secondary leading-relaxed">
+                  Years of elite fencing conditioning translate to high endurance during marathon hackathons, fast learning, and calm under fire.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================
+         SKILLS SECTION: Core Technical Competencies
+         ======================================================== -->
+    <section id="skills" class="section-padding bg-surface-alt" aria-label="Core Technical Competencies">
+      <div class="container">
+        
+        <div class="section-header">
+          <div class="section-tag font-mono">&gt; 02. TECHNICAL ARSENAL</div>
+          <h2 class="section-title">Core Technical Competencies</h2>
+          <p class="section-desc">
+            Foundations engineered for high performance, logic precision, and seamless automation.
+          </p>
+        </div>
+
+        <div class="skills-grid">
+          
+          <!-- Competency 1: Python -->
+          <div class="spotlight-card skill-card" data-category="python">
+            <div class="card-glow-border"></div>
+            <div class="card-inner">
+              <div class="skill-card-top">
+                <div class="skill-icon-badge text-cyan">
+                  <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2c-4.4 0-4.5 1.9-4.5 1.9l.01 2h4.6v.6H5.4S2 6.1 2 10.5s3 4.3 3 4.3h1.8v-2.5s-.1-3 3-3h5.1s2.9-.1 2.9-2.9-.1-4.4-4.4-4.4H12zm-1.8 1.4a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8zM12 22c4.4 0 4.5-1.9 4.5-1.9l-.01-2h-4.6v-.6h6.7s3.4.4 3.4-4-3-4.3-3-4.3h-1.8v2.5s.1 3-3 3H9.1s-2.9.1-2.9 2.9.1 4.4 4.4 4.4H12zm1.8-1.4a.9.9 0 1 1 0-1.8.9.9 0 0 1 0 1.8z"/>
+                  </svg>
+                </div>
+                <div class="skill-title-block">
+                  <span class="skill-tier font-mono text-cyan text-xs">LOGIC &bull; ALGORITHMS</span>
+                  <h3 class="skill-name">Python 3</h3>
+                </div>
+              </div>
+
+              <p class="skill-description">
+                Leveraged for algorithmic computation, discrete mathematical modeling, CLI tool architecture, and backend logic. Clean code following PEP 8 standards with emphasis on time/space efficiency.
+              </p>
+
+              <div class="skill-tags">
+                <span class="tag">Discrete Logic</span>
+                <span class="tag">Algorithms</span>
+                <span class="tag">CLI Tooling</span>
+                <span class="tag">OOP Design</span>
+                <span class="tag">Data Structures</span>
+                <span class="tag">File I/O</span>
+              </div>
+
+              <div class="code-snippet-box">
+                <div class="code-head font-mono text-xs">
+                  <span>demo_solver.py</span>
+                  <span class="text-cyan font-bold">PY</span>
+                </div>
+                <pre class="font-mono text-xs"><code><span class="text-purple">def</span> <span class="text-cyan">truth_eval</span>(p, q, expr):
+    <span class="text-muted"># Fast evaluation of propositions</span>
+    <span class="text-purple">return</span> eval(expr, {<span class="text-emerald">'P'</span>: p, <span class="text-emerald">'Q'</span>: q})</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- Competency 2: Web Development -->
+          <div class="spotlight-card skill-card" data-category="web">
+            <div class="card-glow-border"></div>
+            <div class="card-inner">
+              <div class="skill-card-top">
+                <div class="skill-icon-badge text-emerald">
+                  <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
+                  </svg>
+                </div>
+                <div class="skill-title-block">
+                  <span class="skill-tier font-mono text-emerald text-xs">FRONTEND &bull; ARCHITECTURE</span>
+                  <h3 class="skill-name">Web Development</h3>
+                </div>
+              </div>
+
+              <p class="skill-description">
+                Building accessible, high-framerate modern web applications using semantic HTML5, cutting-edge CSS3 (Flexbox, Grid, CSS Variables), and modern JavaScript (ES6+, DOM APIs, Canvas, Async/Await) without unnecessary bloat.
+              </p>
+
+              <div class="skill-tags">
+                <span class="tag">HTML5 Semantic</span>
+                <span class="tag">Modern CSS3</span>
+                <span class="tag">JavaScript ES6+</span>
+                <span class="tag">Canvas API</span>
+                <span class="tag">Responsive UI</span>
+                <span class="tag">DOM Lifecycle</span>
+              </div>
+
+              <div class="code-snippet-box">
+                <div class="code-head font-mono text-xs">
+                  <span>reactive_state.js</span>
+                  <span class="text-emerald font-bold">ES6</span>
+                </div>
+                <pre class="font-mono text-xs"><code><span class="text-purple">const</span> <span class="text-cyan">createStore</span> = (init) =&gt; {
+  <span class="text-purple">let</span> s = init, subs = <span class="text-purple">new</span> Set();
+  <span class="text-purple">return</span> { get: () =&gt; s, set: fn =&gt; { s = fn(s); subs.forEach(cb =&gt; cb(s)); } };
+};</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- Competency 3: Command-Line & Systems -->
+          <div class="spotlight-card skill-card" data-category="systems">
+            <div class="card-glow-border"></div>
+            <div class="card-inner">
+              <div class="skill-card-top">
+                <div class="skill-icon-badge text-purple">
+                  <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                  </svg>
+                </div>
+                <div class="skill-title-block">
+                  <span class="skill-tier font-mono text-purple text-xs">SYSTEMS &bull; DEVOPS</span>
+                  <h3 class="skill-name">CLI &amp; System Utilities</h3>
+                </div>
+              </div>
+
+              <p class="skill-description">
+                Comfortable in Unix environments. Proficient in shell scripting (zsh/Bash), automated cron scheduling, Git version control, Homebrew environment setup, and pipeline productivity hacks.
+              </p>
+
+              <div class="skill-tags">
+                <span class="tag">zsh / Bash</span>
+                <span class="tag">Git &amp; GitHub</span>
+                <span class="tag">Homebrew</span>
+                <span class="tag">Unix Coreutils</span>
+                <span class="tag">Cron Automation</span>
+                <span class="tag">Vim / Neovim</span>
+              </div>
+
+              <div class="code-snippet-box">
+                <div class="code-head font-mono text-xs">
+                  <span>deploy_pipeline.sh</span>
+                  <span class="text-purple font-bold">BASH</span>
+                </div>
+                <pre class="font-mono text-xs"><code><span class="text-muted">#!/usr/bin/env bash</span>
+<span class="text-cyan">set</span> -euo pipefail
+git fetch origin &amp;&amp; git rebase
+python3 -m unittest discover -s tests/</code></pre>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================
+         PROJECTS SECTION: Featured Technical Projects
+         ======================================================== -->
+    <section id="projects" class="section-padding" aria-label="Featured Technical Projects">
+      <div class="container">
+        
+        <div class="section-header">
+          <div class="section-tag font-mono">&gt; 03. CODE REPOSITORIES</div>
+          <h2 class="section-title">Featured Technical Projects</h2>
+          <p class="section-desc">
+            Production-quality implementations focusing on algorithmic problem-solving, terminal automation, and vanilla web systems.
+          </p>
+        </div>
+
+        <div class="projects-list">
+          
+          <!-- Project 1: Terminal Math Solver -->
+          <article class="spotlight-card project-card" data-project="math-solver">
+            <div class="card-glow-border"></div>
+            <div class="project-content-grid">
+              
+              <div class="project-info">
+                <div class="project-badge-row">
+                  <span class="project-category font-mono text-cyan">CLI APPLICATION</span>
+                  <span class="project-version font-mono text-muted">v2.1.0</span>
+                </div>
+
+                <h3 class="project-name">Terminal Math Solver</h3>
+                
+                <p class="project-summary">
+                  A high-performance Python CLI utility designed to compute discrete mathematics logic, truth tables, Boolean algebra expressions, set relationships, and algorithm complexity evaluations with real-time ASCII visualization.
+                </p>
+
+                <div class="project-features">
+                  <div class="feature-item">
+                    <svg class="w-4 h-4 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span>Instant generation of \(2^n\) proposition truth tables with validity checks</span>
+                  </div>
+                  <div class="feature-item">
+                    <svg class="w-4 h-4 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span>Union, intersection, Cartesian product and equivalence relation analysis</span>
+                  </div>
+                  <div class="feature-item">
+                    <svg class="w-4 h-4 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span>Interactive step-by-step CLI REPL mode with history logging</span>
+                  </div>
+                </div>
+
+                <div class="project-tech-stack">
+                  <span class="tech-pill">Python 3</span>
+                  <span class="tech-pill">Discrete Math</span>
+                  <span class="tech-pill">AST Parser</span>
+                  <span class="tech-pill">CLI / argparse</span>
+                </div>
+
+                <div class="project-links">
+                  <button class="btn btn-sm btn-outline run-in-term-btn" data-run="projects 1" title="Inspect in terminal">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    <span>Inspect in CLI</span>
+                  </button>
+                  <a href="https://github.com/ashishparihar2006" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-ghost">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    <span>Source Code</span>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Terminal Preview / Code Mockup -->
+              <div class="project-terminal-preview">
+                <div class="preview-header">
+                  <span class="preview-dot"></span>
+                  <span class="preview-dot"></span>
+                  <span class="preview-dot"></span>
+                  <span class="preview-title font-mono text-xs">math_solver.py — interactive</span>
+                </div>
+                <div class="preview-code font-mono text-xs">
+                  <div class="term-line"><span class="text-cyan">$</span> python3 math_solver.py --eval "(P ^ Q) -&gt; (P v R)"</div>
+                  <div class="term-line text-muted">[+] Parsing discrete proposition expression...</div>
+                  <div class="term-line text-emerald">[OK] Syntax verified. Compiling 3-variable truth table:</div>
+                  <div class="term-table mt-1">
+                    <div class="table-row table-head text-cyan font-bold">| P | Q | R | (P ^ Q) | (P v R) | RESULT |</div>
+                    <div class="table-row">| T | T | T |    T    |    T    |   <span class="text-emerald">TRUE</span> |</div>
+                    <div class="table-row">| T | T | F |    T    |    T    |   <span class="text-emerald">TRUE</span> |</div>
+                    <div class="table-row">| T | F | T |    F    |    T    |   <span class="text-emerald">TRUE</span> |</div>
+                    <div class="table-row">| F | F | F |    F    |    F    |   <span class="text-emerald">TRUE</span> |</div>
+                  </div>
+                  <div class="term-line text-cyan mt-1">&gt;&gt; Expression Classification: TAUTOLOGY</div>
+                </div>
+              </div>
+
+            </div>
+          </article>
+
+          <!-- Project 2: Automated System Manager -->
+          <article class="spotlight-card project-card" data-project="sys-manager">
+            <div class="card-glow-border"></div>
+            <div class="project-content-grid">
+              
+              <div class="project-info">
+                <div class="project-badge-row">
+                  <span class="project-category font-mono text-purple">SYSTEM AUTOMATION</span>
+                  <span class="project-version font-mono text-muted">v1.8.2</span>
+                </div>
+
+                <h3 class="project-name">Automated System Manager</h3>
+                
+                <p class="project-summary">
+                  A resilient Unix shell and Python scripting utility for automating developer workstation maintenance. Streamlines file categorization, cache purification, cron scheduling, and hardware telemetry monitoring.
+                </p>
+
+                <div class="project-features">
+                  <div class="feature-item">
+                    <svg class="w-4 h-4 text-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span>Configurable rules engine for intelligent file sorting &amp; deep cleanup</span>
+                  </div>
+                  <div class="feature-item">
+                    <svg class="w-4 h-4 text-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span>Automated cron generator with failure alerting and log archiving</span>
+                  </div>
+                  <div class="feature-item">
+                    <svg class="w-4 h-4 text-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span>Live memory, CPU, and disk telemetry printed to clean terminal gauge</span>
+                  </div>
+                </div>
+
+                <div class="project-tech-stack">
+                  <span class="tech-pill">Unix / zsh</span>
+                  <span class="tech-pill">Python 3</span>
+                  <span class="tech-pill">Cron Engine</span>
+                  <span class="tech-pill">Shell Scripting</span>
+                </div>
+
+                <div class="project-links">
+                  <button class="btn btn-sm btn-outline run-in-term-btn" data-run="projects 2" title="Inspect in terminal">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    <span>Inspect in CLI</span>
+                  </button>
+                  <a href="https://github.com/ashishparihar2006" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-ghost">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    <span>Source Code</span>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Terminal Preview / Code Mockup -->
+              <div class="project-terminal-preview">
+                <div class="preview-header">
+                  <span class="preview-dot"></span>
+                  <span class="preview-dot"></span>
+                  <span class="preview-dot"></span>
+                  <span class="preview-title font-mono text-xs">sysman.sh --status</span>
+                </div>
+                <div class="preview-code font-mono text-xs">
+                  <div class="term-line"><span class="text-cyan">$</span> ./sysman.sh --analyze --cleanup --cron-check</div>
+                  <div class="term-line text-muted">[+] Scanning filesystem inodes in ~/Downloads and ~/.cache...</div>
+                  <div class="term-line text-emerald">[OK] Categorized 142 items by MIME type.</div>
+                  <div class="term-line text-cyan">[i] Cache reclaimed: 4.8 GB | Storage optimized.</div>
+                  <div class="term-line text-purple mt-1">[CRON JOBS ACTIVE]</div>
+                  <div class="term-line font-mono">&bull; 00:00 Daily &rarr; git backup dotfiles [PASS]</div>
+                  <div class="term-line font-mono">&bull; 03:00 Weekly &rarr; system trim &amp; log rotate [PASS]</div>
+                  <div class="term-line text-emerald mt-1">&gt; System Health: 100% OPERATIONAL</div>
+                </div>
+              </div>
+
+            </div>
+          </article>
+
+          <!-- Project 3: Responsive Task Hub -->
+          <article class="spotlight-card project-card" data-project="task-hub">
+            <div class="card-glow-border"></div>
+            <div class="project-content-grid">
+              
+              <div class="project-info">
+                <div class="project-badge-row">
+                  <span class="project-category font-mono text-emerald">WEB APPLICATION</span>
+                  <span class="project-version font-mono text-muted">v3.0.0</span>
+                </div>
+
+                <h3 class="project-name">Responsive Task Hub</h3>
+                
+                <p class="project-summary">
+                  A lightning-fast, zero-dependency task and priority management dashboard built entirely with vanilla JavaScript ES6+, HTML5, and CSS3. Features custom state subscriptions, client-side persistence, and dark cyberpunk styling.
+                </p>
+
+                <div class="project-features">
+                  <div class="feature-item">
+                    <svg class="w-4 h-4 text-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span>Zero framework overhead: 100% vanilla JavaScript with 60 FPS animations</span>
+                  </div>
+                  <div class="feature-item">
+                    <svg class="w-4 h-4 text-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span>Custom pub/sub state manager synced with LocalStorage for offline resilience</span>
+                  </div>
+                  <div class="feature-item">
+                    <svg class="w-4 h-4 text-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span>Category tags, priority matrix filtering, and keyboard navigation shortcuts</span>
+                  </div>
+                </div>
+
+                <div class="project-tech-stack">
+                  <span class="tech-pill">Vanilla JS ES6+</span>
+                  <span class="tech-pill">HTML5</span>
+                  <span class="tech-pill">CSS Grid/Flex</span>
+                  <span class="tech-pill">LocalStorage API</span>
+                </div>
+
+                <div class="project-links">
+                  <button class="btn btn-sm btn-outline run-in-term-btn" data-run="projects 3" title="Inspect in terminal">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    <span>Inspect in CLI</span>
+                  </button>
+                  <a href="https://github.com/ashishparihar2006" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-ghost">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    <span>Source Code</span>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Terminal Preview / Code Mockup -->
+              <div class="project-terminal-preview">
+                <div class="preview-header">
+                  <span class="preview-dot"></span>
+                  <span class="preview-dot"></span>
+                  <span class="preview-dot"></span>
+                  <span class="preview-title font-mono text-xs">taskhub.app — live reactive state</span>
+                </div>
+                <div class="preview-code font-mono text-xs">
+                  <div class="term-line"><span class="text-cyan">&gt;</span> const hub = new TaskHub({ storage: 'local', theme: 'cyber' });</div>
+                  <div class="term-line text-muted">[State Engine] Initialized 0 dependencies, 2.4kb gzipped</div>
+                  <div class="term-line text-emerald">[OK] State hydrated from LocalStorage: 18 active tasks</div>
+                  <div class="term-line text-cyan mt-1">[UI RENDER METRICS]</div>
+                  <div class="term-line">&bull; First Contentful Paint: 85ms</div>
+                  <div class="term-line">&bull; Cumulative Layout Shift: 0.00</div>
+                  <div class="term-line">&bull; Memory Footprint: &lt; 1.2MB</div>
+                  <div class="term-line text-emerald mt-1">&gt; Status: 100/100 Lighthouse Performance</div>
+                </div>
+              </div>
+
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================
+         ATHLETICS SECTION: Distinctions & Fencing Discipline
+         ======================================================== -->
+    <section id="athletics" class="section-padding bg-surface-alt" aria-label="Distinctions and Athletics">
+      <div class="container">
+        
+        <div class="section-header">
+          <div class="section-tag font-mono">&gt; 04. DISTINCTIONS &amp; DISCIPLINE</div>
+          <h2 class="section-title">The Art of Tactical Fencing</h2>
+          <p class="section-desc">
+            Competitive honors on the national fencing strip and the psychological stamina that powers my engineering.
+          </p>
+        </div>
+
+        <div class="athletics-showcase-grid">
+          
+          <!-- Medal Honors Card 1: 2-Time National Medalist -->
+          <div class="spotlight-card medal-card">
+            <div class="card-glow-border"></div>
+            <div class="card-inner">
+              <div class="medal-icon-wrap medal-gold">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                </svg>
+              </div>
+              <span class="medal-tag font-mono text-cyan text-xs">NATIONAL CHAMPIONSHIPS</span>
+              <h3 class="medal-title">2-Time National Medalist</h3>
+              <p class="medal-desc">
+                Awarded national podium positions in competitive fencing, competing against the premier tactical athletes across the country through intense qualification bouts.
+              </p>
+              <div class="medal-details-badge font-mono text-xs">
+                <span>&bull; Weapon: Epee / Foil Focus</span>
+                <span>&bull; Level: National Circuit</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Medal Honors Card 2: Khelo MP Bronze Medalist -->
+          <div class="spotlight-card medal-card">
+            <div class="card-glow-border"></div>
+            <div class="card-inner">
+              <div class="medal-icon-wrap medal-bronze">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              </div>
+              <span class="medal-tag font-mono text-purple text-xs">STATE GAMES</span>
+              <h3 class="medal-title">Khelo MP Bronze Medalist</h3>
+              <p class="medal-desc">
+                Secured the Bronze Medal at the prestigious Khelo MP Games in fencing, proving tactical agility, defensive counters, and mental stamina in sudden-death priority rounds.
+              </p>
+              <div class="medal-details-badge font-mono text-xs">
+                <span>&bull; Event: Khelo MP State Games</span>
+                <span>&bull; Discipline: Fencing</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Strategic Parallels: Fencing vs Software Engineering -->
+        <div class="spotlight-card parallels-card mt-8">
+          <div class="card-glow-border"></div>
+          <div class="card-inner">
+            <div class="parallels-header">
+              <span class="font-mono text-xs text-cyan">&gt; STRATEGIC MAPPINGS</span>
+              <h3 class="text-xl font-bold text-white mt-1">How Competitive Fencing Powers My Engineering</h3>
+            </div>
+
+            <div class="parallels-grid">
+              
+              <div class="parallel-box">
+                <div class="parallel-num font-mono text-cyan">01</div>
+                <h4 class="font-bold text-white text-base mb-1">Tactical Anticipation</h4>
+                <p class="text-xs text-secondary leading-relaxed">
+                  On the strip, you study your opponent’s subtle cadence to anticipate their attack 3 steps in advance. In systems architecture, this manifests as anticipating failure states, race conditions, and edge-case inputs before writing production code.
+                </p>
+              </div>
+
+              <div class="parallel-box">
+                <div class="parallel-num font-mono text-emerald">02</div>
+                <h4 class="font-bold text-white text-base mb-1">Split-Second Precision</h4>
+                <p class="text-xs text-secondary leading-relaxed">
+                  A scoring touch in fencing happens in less than 200 milliseconds. That training eliminates hesitation and creates laser focus when diagnosing broken pipelines, tracking down memory leaks, or debugging algorithmic bottlenecks.
+                </p>
+              </div>
+
+              <div class="parallel-box">
+                <div class="parallel-num font-mono text-purple">03</div>
+                <h4 class="font-bold text-white text-base mb-1">Uncompromising Stamina</h4>
+                <p class="text-xs text-secondary leading-relaxed">
+                  Winning medals demands thousands of hours of repetitive footwork drills in silence. That deep conditioning builds the endurance required to master difficult discrete math proofs, read complex documentation, and iterate relentlessly.
+                </p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================
+         CONTACT SECTION: Connect & Interactive Form
+         ======================================================== -->
+    <section id="contact" class="section-padding" aria-label="Contact and Connect">
+      <div class="container">
+        
+        <div class="section-header">
+          <div class="section-tag font-mono">&gt; 05. INITIATE CONNECTION</div>
+          <h2 class="section-title">Let’s Build Something Exceptional</h2>
+          <p class="section-desc">
+            Whether you want to collaborate on open-source software, discuss summer internships, or talk about terminal automation—drop me a line.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          
+          <!-- Left Column: Contact Channels & Social Pills -->
+          <div class="contact-info-col">
+            <div class="spotlight-card contact-meta-card">
+              <div class="card-glow-border"></div>
+              <div class="card-inner">
+                <h3 class="text-lg font-bold text-white mb-2">Direct Communication</h3>
+                <p class="text-sm text-secondary mb-6 leading-relaxed">
+                  I actively monitor messages and respond promptly. Feel free to reach out directly via email or connect on professional platforms.
+                </p>
+
+                <!-- Direct Details List -->
+                <div class="contact-details-list">
+                  <div class="detail-item">
+                    <span class="detail-label font-mono text-xs text-muted">PRIMARY EMAIL</span>
+                    <a href="mailto:ashishparihar138@gmail.com" class="detail-value text-cyan hover:underline font-mono">
+                      ashishparihar138@gmail.com
+                    </a>
+                  </div>
+                  <div class="detail-item">
+                    <span class="detail-label font-mono text-xs text-muted">LOCATION &amp; TIMEZONE</span>
+                    <span class="detail-value text-white font-mono">India &bull; UTC+05:30 (IST)</span>
+                  </div>
+                  <div class="detail-item">
+                    <span class="detail-label font-mono text-xs text-muted">CURRENT ENGAGEMENT</span>
+                    <span class="detail-value text-emerald font-mono flex items-center gap-1.5">
+                      <span class="bullet-dot bg-emerald"></span> Open for Internships &amp; Collaborations
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Custom Social Pills with Hover Animations -->
+                <div class="social-pills-wrap mt-8">
+                  <span class="text-xs font-mono text-muted uppercase tracking-wider block mb-3">Network &amp; Profiles</span>
+                  <div class="social-pills-flex">
+                    <!-- GitHub -->
+                    <a href="https://github.com/ashishparihar2006" target="_blank" rel="noopener noreferrer" class="social-pill group" aria-label="Ashish Parihar on GitHub">
+                      <svg class="pill-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                      <span class="pill-text">GitHub</span>
+                      <svg class="pill-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+
+                    <!-- LinkedIn -->
+                    <a href="https://linkedin.com/in/ashishparihar" target="_blank" rel="noopener noreferrer" class="social-pill group" aria-label="Ashish Parihar on LinkedIn">
+                      <svg class="pill-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                      <span class="pill-text">LinkedIn</span>
+                      <svg class="pill-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+
+                    <!-- Email Direct -->
+                    <a href="mailto:ashishparihar138@gmail.com" class="social-pill group" aria-label="Send Email">
+                      <svg class="pill-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                      <span class="pill-text">Email</span>
+                      <svg class="pill-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Interactive Contact Form with Focus Glow & Validation -->
+          <div class="contact-form-col">
+            <div class="spotlight-card form-container-card">
+              <div class="card-glow-border"></div>
+              <div class="card-inner">
+                <div class="form-header flex-between mb-6">
+                  <div>
+                    <span class="font-mono text-cyan text-xs">&gt; TRANSMISSION_TERMINAL</span>
+                    <h3 class="text-xl font-bold text-white mt-1">Send A Direct Message</h3>
+                  </div>
+                  <span class="status-pill text-xs font-mono text-emerald border border-emerald-500/30 px-2 py-0.5 rounded">
+                    ENCRYPTED
+                  </span>
+                </div>
+
+                <!-- Form Element -->
+                <form id="contact-form" class="space-y-4" novalidate>
+                  <div class="form-group">
+                    <label for="contact-name" class="form-label font-mono text-xs">
+                      NAME <span class="text-cyan">*</span>
+                    </label>
+                    <div class="input-wrapper">
+                      <input type="text" id="contact-name" name="name" class="form-input" placeholder="e.g. Alex Turing" required autocomplete="name">
+                      <span class="input-focus-border"></span>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="contact-email" class="form-label font-mono text-xs">
+                      EMAIL ADDRESS <span class="text-cyan">*</span>
+                    </label>
+                    <div class="input-wrapper">
+                      <input type="email" id="contact-email" name="email" class="form-input" placeholder="e.g. alex@example.com" required autocomplete="email">
+                      <span class="input-focus-border"></span>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="contact-subject" class="form-label font-mono text-xs">
+                      TOPIC / SUBJECT <span class="text-cyan">*</span>
+                    </label>
+                    <div class="input-wrapper">
+                      <input type="text" id="contact-subject" name="subject" class="form-input" placeholder="e.g. Internship Opportunity / Open Source Collab" required>
+                      <span class="input-focus-border"></span>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="flex-between">
+                      <label for="contact-message" class="form-label font-mono text-xs">
+                        MESSAGE PAYLOAD <span class="text-cyan">*</span>
+                      </label>
+                      <span id="char-counter" class="text-xs font-mono text-muted">0 / 1000</span>
+                    </div>
+                    <div class="input-wrapper">
+                      <textarea id="contact-message" name="message" rows="5" class="form-input form-textarea" placeholder="Detail your project, question, or proposition..." required maxlength="1000"></textarea>
+                      <span class="input-focus-border"></span>
+                    </div>
+                  </div>
+
+                  <!-- Form Feedback Banner (Hidden by default) -->
+                  <div id="form-feedback" class="form-feedback hidden font-mono text-xs p-3 rounded" role="alert"></div>
+
+                  <!-- Submit Action Button -->
+                  <button type="submit" id="form-submit-btn" class="btn btn-primary btn-glow w-full justify-center">
+                    <span id="submit-btn-text">Transmit Transmission</span>
+                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                    </svg>
+                  </button>
+                </form>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================
+       FOOTER: Minimalist System Footer & Back-to-Top
+       ======================================================== -->
+  <footer class="site-footer border-t border-subtle">
+    <div class="container footer-content">
+      <div class="footer-left">
+        <a href="#hero" class="nav-brand group" aria-label="Back to Top">
+          <span class="brand-terminal-badge">&gt;_</span>
+          <span class="brand-text">
+            <span class="brand-name">ASHISH<span class="text-cyan">.PARIHAR</span></span>
+          </span>
+        </a>
+        <p class="text-xs text-muted mt-2 font-mono">
+          Engineered with modern HTML5, CSS3 &amp; Vanilla JavaScript. Zero external UI dependencies.
+        </p>
+      </div>
+
+      <div class="footer-center text-xs font-mono text-muted text-center">
+        <div>SYSTEM STATUS: <span class="text-emerald font-bold">&bull; ALL SYSTEMS NOMINAL</span></div>
+        <div class="mt-1">&copy; <span id="current-year">2026</span> Ashish Parihar. All Rights Reserved.</div>
+      </div>
+
+      <div class="footer-right">
+        <!-- Back to Top Button -->
+        <button id="back-to-top-btn" class="btn-back-to-top" title="Back to top of page" aria-label="Scroll back to top">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+          </svg>
+          <span class="text-xs font-mono">TOP</span>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/terminal.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
-
-
-
