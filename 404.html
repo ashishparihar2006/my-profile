@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>404: Not Found | Ashish Parihar</title>
-  <meta name="theme-color" content="#0D0F12">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230D0F12'/><text x='50%' y='58%' dominant-baseline='central' text-anchor='middle' font-family='monospace' font-size='52' font-weight='900' fill='%2300F2FE'>&gt;_</text></svg>">
+  <title>404: Node Not Found | Ashish Parihar</title>
+  <meta name="theme-color" content="#08090B">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2308090B'/><text x='50%' y='58%' dominant-baseline='central' text-anchor='middle' font-family='monospace' font-size='52' font-weight='900' fill='%2300F2FE'>&gt;_</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
   <style>
     .not-found-wrapper {
       min-height: 100vh;
@@ -22,44 +22,57 @@
       z-index: 10;
     }
     .not-found-box {
-      max-width: 580px;
-      background: #11151D;
-      border: 1px solid rgba(0, 242, 254, 0.3);
-      border-radius: 12px;
+      max-width: 560px;
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
       padding: 3rem 2rem;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 242, 254, 0.15);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 242, 254, 0.08);
+      position: relative;
+      overflow: hidden;
+    }
+    .not-found-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--color-cyan), var(--color-indigo), transparent);
     }
     .error-code {
       font-family: var(--font-mono);
       font-size: 5rem;
-      font-weight: 700;
+      font-weight: 800;
       color: var(--color-cyan);
       line-height: 1;
-      margin-bottom: 1rem;
-      text-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+      margin-bottom: 1.25rem;
+      text-shadow: 0 0 30px rgba(0, 242, 254, 0.35);
+      letter-spacing: -0.05em;
     }
   </style>
 </head>
-<body class="bg-base text-main antialiased">
-  <div class="cyber-scanlines" aria-hidden="true"></div>
+<body class="bg-base text-main antialiased selection:bg-cyan selection:text-black">
+  <div class="dot-matrix-bg" aria-hidden="true"></div>
 
   <main class="not-found-wrapper">
     <div class="not-found-box">
       <div class="error-code">&gt; 404</div>
-      <h1 class="text-2xl font-bold text-white mb-3">Resource Node Not Found</h1>
+      <h1 class="text-2xl font-bold text-white mb-3" style="font-family: var(--font-display);">Resource Inode Not Found</h1>
       <p class="text-secondary text-sm font-mono mb-6 leading-relaxed">
-        The requested virtual path or inode does not exist on this portfolio cluster. It may have been relocated, purged, or never existed.
+        The requested virtual node or endpoint does not exist on this PolyThink bento cluster. It may have been relocated, purged, or never existed.
       </p>
       <div class="flex items-center justify-center gap-3">
         <a href="./" class="btn btn-primary btn-glow">
-          <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
           </svg>
           <span>Return to Homepage</span>
         </a>
       </div>
       <p class="text-xs text-muted font-mono mt-6">
-        ashish@portfolio:~ (error: ENOENT)
+        ashish@polythink:~ (status: 404_ENOENT)
       </p>
     </div>
   </main>
