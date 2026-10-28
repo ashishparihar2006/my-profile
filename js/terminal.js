@@ -1,7 +1,16 @@
 /**
- * ASHISH PARIHAR // INTERACTIVE TERMINAL ENGINE
- * Pure vanilla JavaScript terminal emulator with command history, 
- * tab completion, synthesized audio, interactive quick chips, and rich CLI responses.
+ * ASHISH PARIHAR // PRODUCTION TERMINAL ENGINE v2.0.0
+ * Standalone Vanilla JavaScript terminal component.
+ * Features:
+ * - Safe DOM rendering (zero eval(), textContent sanitization)
+ * - Required commands: help, about, skills, projects, fencing, contact, clear, theme, sudo, matrix
+ * - Up/Down command history
+ * - Tab autocompletion
+ * - Quick-command chips
+ * - Automatic output scrolling
+ * - Terminal reset button
+ * - Optional synthesized Web Audio (Off by default)
+ * - Reduced-motion compliance
  */
 
 (function () {
@@ -12,7 +21,7 @@
   const terminalBody = document.getElementById('terminal-body');
   const terminalInput = document.getElementById('terminal-input');
   const terminalHistory = document.getElementById('terminal-history');
-  const termClearBtn = document.getElementById('term-clear-btn');
+  const termResetBtn = document.getElementById('term-reset-btn');
   const termAudioToggle = document.getElementById('term-audio-toggle');
   const audioIcon = document.getElementById('audio-icon');
   const quickChips = document.querySelectorAll('.cmd-chip');
@@ -24,6 +33,7 @@
   let historyIndex = -1;
   let audioEnabled = false;
   let audioCtx = null;
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // Initialize Web Audio API for mechanical key clicks (Zero external files needed)
   function initAudio() {
@@ -39,7 +49,10 @@
   }
 
   function playKeyClick(isEnter = false) {
-    if (!audioEnabled || !audioCtx) return;
+    if (!audioEnabled || prefersReducedMotion) return;
+    initAudio();
+    if (!audioCtx) return;
+
     try {
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
@@ -60,7 +73,7 @@
     }
   }
 
-  // Audio Toggle Button
+  // Audio Toggle Button (Sound off by default)
   if (termAudioToggle) {
     termAudioToggle.addEventListener('click', () => {
       audioEnabled = !audioEnabled;
@@ -68,115 +81,115 @@
         initAudio();
         audioIcon.textContent = '🔊';
         termAudioToggle.setAttribute('title', 'Sound effects: ON (Click to mute)');
-        printOutput('info', '<span class="text-emerald">[System] Terminal audio synthesized effects ENABLED.</span>');
+        termAudioToggle.setAttribute('aria-label', 'Sound effects are on. Click to mute.');
+        printOutput('', '<span class="text-emerald">[System] Terminal audio effects ENABLED.</span>');
       } else {
         audioIcon.textContent = '🔇';
         termAudioToggle.setAttribute('title', 'Sound effects: MUTED (Click to enable)');
-        printOutput('info', '<span class="text-muted">[System] Terminal audio MUTED.</span>');
+        termAudioToggle.setAttribute('aria-label', 'Sound effects are muted. Click to enable.');
+        printOutput('', '<span class="text-muted">[System] Terminal audio MUTED.</span>');
       }
     });
   }
 
-  // Available Commands Dictionary
+  // Predefined Commands Registry
   const COMMANDS = {
     help: {
-      desc: 'List all available terminal commands',
+      desc: 'Display available commands and descriptions',
       exec: () => `
 <div class="term-output-card">
-  <div class="text-cyan font-bold mb-1">&gt; ASHISH_CLI // SYSTEM COMMAND REGISTRY:</div>
+  <div class="text-cyan font-bold mb-1">&gt; ASHISH_CLI // COMMAND DIRECTORY:</div>
   <div><span class="cmd-highlight">help</span>       - Displays this manual reference</div>
-  <div><span class="cmd-highlight">about</span>      - Personal summary, CS journey & philosophy</div>
-  <div><span class="cmd-highlight">skills</span>     - Core technical competencies & toolchain</div>
+  <div><span class="cmd-highlight">about</span>      - Background, CS studies &amp; discipline philosophy</div>
+  <div><span class="cmd-highlight">skills</span>     - Categorized technical competencies</div>
   <div><span class="cmd-highlight">projects</span>   - Technical projects (or: 'projects 1', 'projects 2', 'projects 3')</div>
-  <div><span class="cmd-highlight">fencing</span>    - Competitive athletics & national distinctions</div>
-  <div><span class="cmd-highlight">contact</span>    - Transmission channels, email & social links</div>
-  <div><span class="cmd-highlight">whoami</span>     - Active identity and security credentials</div>
-  <div><span class="cmd-highlight">ls</span>         - List available virtual directory files</div>
-  <div><span class="cmd-highlight">cat &lt;file&gt;</span>  - Read virtual file content</div>
-  <div><span class="cmd-highlight">matrix</span>     - Toggle cyberpunk matrix glitch mode</div>
-  <div><span class="cmd-highlight">date</span>       - Query local and UTC timestamp</div>
+  <div><span class="cmd-highlight">fencing</span>    - Competitive athletics &amp; national medal distinctions</div>
+  <div><span class="cmd-highlight">contact</span>    - Verified communication channels &amp; social links</div>
+  <div><span class="cmd-highlight">theme</span>      - Toggle background canvas particle network</div>
+  <div><span class="cmd-highlight">matrix</span>     - Toggle cyberpunk matrix aesthetic</div>
+  <div><span class="cmd-highlight">sudo</span>       - Administrative privileges test</div>
   <div><span class="cmd-highlight">clear</span>      - Flush terminal history buffer</div>
 </div>
-<div class="text-muted text-xs mt-1">Tip: Use [Up] & [Down] arrow keys for history, [Tab] for autocomplete.</div>`
+<div class="text-muted text-xs mt-1">Navigation tip: Use [Up] &amp; [Down] arrow keys for history, [Tab] for autocomplete.</div>`
     },
 
     about: {
-      desc: 'Summary of background, CS undergrad focus, and philosophy',
+      desc: 'Display verified background and introduction',
       exec: () => `
 <div class="term-output-card">
   <div class="text-cyan font-bold mb-1">&gt; USER PROFILE: ASHISH PARIHAR</div>
-  <p><strong class="text-white">Role:</strong> First-Year Computer Science Student & Aspiring Software Developer</p>
-  <p><strong class="text-white">Athletic Distinction:</strong> 2-Time National Medalist & Khelo MP Bronze Medalist (Fencing)</p>
-  <p><strong class="text-white">Core Focus:</strong> Discrete Mathematics, Algorithmic Logic, Unix Terminal Systems, Modern Web</p>
+  <p><strong class="text-white">Role:</strong> First-Year Computer Science Undergraduate &amp; Software Developer</p>
+  <p><strong class="text-white">Athletics:</strong> 2-Time National Medalist &amp; Khelo MP Bronze Medalist (Fencing)</p>
+  <p><strong class="text-white">Focus:</strong> Discrete Mathematics, Algorithmic Logic, Unix Automation, Modern Web</p>
   <p class="mt-2 text-secondary">
-    "I believe great software emerges from the same virtues as competitive fencing: split-second precision,
-    anticipation of edge cases, relentless iteration, and unshakeable discipline."
+    "Engineering software at the intersection of mathematical logic and high-performance terminal systems.
+    Channeling the tactical precision and composure of competitive fencing into clean, maintainable code."
   </p>
-  <div class="mt-2 text-xs text-muted">
-    Navigation shortcut: <a href="#about" class="text-cyan hover:underline">&gt;&gt; Jump to About Section</a>
+  <div class="mt-2 text-xs">
+    <a href="#about" class="text-cyan hover:underline">&gt;&gt; Jump to About Section</a>
   </div>
 </div>`
     },
 
     skills: {
-      desc: 'List core technical competencies',
+      desc: 'Show categorized technical skills',
       exec: () => `
 <div class="term-output-card">
   <div class="text-cyan font-bold mb-1">&gt; TECHNICAL COMPETENCY MATRIX:</div>
   
   <div class="mt-2">
-    <span class="text-cyan font-bold">[1] Python (Logic & Mathematics):</span>
-    <div class="text-xs text-secondary pl-3">&bull; Discrete Mathematics, Boolean Logic, Truth Tables, Graph Theory</div>
-    <div class="text-xs text-secondary pl-3">&bull; CLI Architectures, AST Parsing, Algorithmic Optimization, OOP</div>
+    <span class="text-cyan font-bold">[1] Python (Logic &amp; Mathematics):</span>
+    <div class="text-xs text-secondary pl-3">&bull; Discrete Mathematics, Propositional Logic, Truth Tables</div>
+    <div class="text-xs text-secondary pl-3">&bull; Algorithmic Optimization, CLI Architectures, OOP Design</div>
   </div>
 
   <div class="mt-2">
     <span class="text-emerald font-bold">[2] Web Development:</span>
     <div class="text-xs text-secondary pl-3">&bull; HTML5 Semantic Architecture, Modern CSS3 (Grid, Flexbox, Variables)</div>
-    <div class="text-xs text-secondary pl-3">&bull; JavaScript ES6+ (DOM APIs, Custom State, Canvas API, Async/Await)</div>
+    <div class="text-xs text-secondary pl-3">&bull; JavaScript ES6+ (DOM APIs, Custom Reactive State, Canvas API)</div>
     <div class="text-xs text-secondary pl-3">&bull; Zero-framework high framerate (60fps) responsive design</div>
   </div>
 
   <div class="mt-2">
-    <span class="text-purple font-bold">[3] Command-Line & System Utilities:</span>
+    <span class="text-purple font-bold">[3] Command-Line &amp; System Utilities:</span>
     <div class="text-xs text-secondary pl-3">&bull; Unix Shell: zsh, Bash Scripting, Pipes, POSIX Coreutils</div>
     <div class="text-xs text-secondary pl-3">&bull; Version Control: Git branching, commit hygiene, GitHub workflows</div>
-    <div class="text-xs text-secondary pl-3">&bull; Package Management & Env: Homebrew, macOS/Linux environments, Vim</div>
+    <div class="text-xs text-secondary pl-3">&bull; Package Management &amp; Environment: Homebrew, macOS/Linux environments, Vim</div>
   </div>
   
-  <div class="mt-2 text-xs text-muted">
-    Navigation shortcut: <a href="#skills" class="text-cyan hover:underline">&gt;&gt; Jump to Skills Section</a>
+  <div class="mt-2 text-xs">
+    <a href="#skills" class="text-cyan hover:underline">&gt;&gt; Jump to Skills Section</a>
   </div>
 </div>`
     },
 
     projects: {
-      desc: 'Show featured technical projects',
+      desc: 'Display project summaries and valid links',
       exec: (args) => {
-        const sub = args[0];
+        const sub = args[0] ? args[0].toLowerCase() : '';
         if (sub === '1' || sub === 'math') {
           return `
 <div class="term-output-card">
   <span class="text-cyan font-bold">[01] TERMINAL MATH SOLVER</span> <span class="text-muted text-xs">(Python CLI / Discrete Math)</span>
-  <p class="text-xs text-secondary mt-1">High-performance command-line solver for propositional logic, 2^n truth tables, set relations, and Big-O computational complexity.</p>
-  <div class="text-xs font-mono text-emerald mt-1">$ python3 math_solver.py --eval "(P ^ Q) -> R" --truth-table</div>
-  <div class="text-xs text-muted mt-2">Repo: github.com/ashishparihar2006/terminal-math-solver</div>
+  <p class="text-xs text-secondary mt-1">High-performance command-line solver for propositional logic, 2^n truth tables, set relations, and algorithmic complexity.</p>
+  <div class="text-xs font-mono text-emerald mt-1">$ python3 math_solver.py --eval "(P ^ Q) -&gt; R" --truth-table</div>
+  <div class="text-xs text-muted mt-2">Status: Active Prototype &bull; Developer: <a href="https://github.com/ashishparihar2006" target="_blank" rel="noopener noreferrer" class="text-cyan hover:underline">github.com/ashishparihar2006</a></div>
 </div>`;
         } else if (sub === '2' || sub === 'sys') {
           return `
 <div class="term-output-card purple">
   <span class="text-purple font-bold">[02] AUTOMATED SYSTEM MANAGER</span> <span class="text-muted text-xs">(Unix zsh / Python)</span>
-  <p class="text-xs text-secondary mt-1">Intelligent workstation automation suite. Cleans orphaned caches, classifies files via MIME detection, schedules crons, and prints hardware telemetry.</p>
+  <p class="text-xs text-secondary mt-1">Workstation automation suite. Cleans orphaned caches, classifies files via MIME detection, schedules crons, and prints hardware telemetry.</p>
   <div class="text-xs font-mono text-cyan mt-1">$ sysman --analyze --cleanup --cron-check</div>
-  <div class="text-xs text-muted mt-2">Repo: github.com/ashishparihar2006/automated-system-manager</div>
+  <div class="text-xs text-muted mt-2">Status: Active Utility &bull; Developer: <a href="https://github.com/ashishparihar2006" target="_blank" rel="noopener noreferrer" class="text-cyan hover:underline">github.com/ashishparihar2006</a></div>
 </div>`;
         } else if (sub === '3' || sub === 'task') {
           return `
 <div class="term-output-card emerald">
   <span class="text-emerald font-bold">[03] RESPONSIVE TASK HUB</span> <span class="text-muted text-xs">(Vanilla JS / LocalStorage)</span>
-  <p class="text-xs text-secondary mt-1">Ultra-lightweight task matrix dashboard with custom event-driven reactive state, offline persistence, and zero npm dependencies.</p>
+  <p class="text-xs text-secondary mt-1">Lightweight task matrix dashboard with custom event-driven reactive state, offline persistence, and zero external dependencies.</p>
   <div class="text-xs font-mono text-purple mt-1">&gt; TaskHub.init({ storage: 'local', fps: 60 })</div>
-  <div class="text-xs text-muted mt-2">Repo: github.com/ashishparihar2006/responsive-task-hub</div>
+  <div class="text-xs text-muted mt-2">Status: Active Prototype &bull; Developer: <a href="https://github.com/ashishparihar2006" target="_blank" rel="noopener noreferrer" class="text-cyan hover:underline">github.com/ashishparihar2006</a></div>
 </div>`;
         }
 
@@ -195,15 +208,15 @@
     },
 
     fencing: {
-      desc: 'National athletic distinctions & competitive mindset',
+      desc: 'Display verified fencing achievements',
       exec: () => `
 <div class="term-output-card purple">
   <div class="text-purple font-bold mb-1">&gt; ATHLETIC HONORS &amp; TACTICAL DISCIPLINE:</div>
-  <p><strong class="text-white">&bull; 2-Time National Medalist</strong> (Competitive Fencing Championship)</p>
+  <p><strong class="text-white">&bull; 2-Time National Medalist</strong> (National Fencing Championships)</p>
   <p><strong class="text-white">&bull; Khelo MP Bronze Medalist</strong> (State Games)</p>
   <div class="mt-2 text-xs text-secondary leading-relaxed">
-    "Fencing taught me that speed without precision is meaningless. Whether countering a fleche attack
-    or diagnosing a subtle concurrency bug, success demands total composure and calculated execution."
+    "Fencing taught me that speed without precision is meaningless. Whether countering an opponent
+    or diagnosing a concurrency bottleneck, success demands total composure and calculated execution."
   </div>
   <div class="mt-2 text-xs">
     <a href="#athletics" class="text-purple hover:underline">&gt;&gt; Jump to Athletics Section</a>
@@ -211,19 +224,14 @@
 </div>`
     },
 
-    athletics: {
-      desc: 'Alias for fencing command',
-      exec: () => COMMANDS.fencing.exec()
-    },
-
     contact: {
-      desc: 'Display contact information and links',
+      desc: 'Show verified contact details and social links',
       exec: () => `
 <div class="term-output-card emerald">
-  <div class="text-emerald font-bold mb-1">&gt; TRANSMISSION CHANNELS:</div>
+  <div class="text-emerald font-bold mb-1">&gt; VERIFIED TRANSMISSION CHANNELS:</div>
   <div><strong class="text-white">Email:</strong> <a href="mailto:ashishparihar138@gmail.com" class="text-cyan hover:underline">ashishparihar138@gmail.com</a></div>
-  <div><strong class="text-white">GitHub:</strong> <a href="https://github.com/ashishparihar2006" target="_blank" class="text-cyan hover:underline">github.com/ashishparihar2006</a></div>
-  <div><strong class="text-white">LinkedIn:</strong> <a href="https://linkedin.com/in/ashishparihar" target="_blank" class="text-cyan hover:underline">linkedin.com/in/ashishparihar</a></div>
+  <div><strong class="text-white">GitHub:</strong> <a href="https://github.com/ashishparihar2006" target="_blank" rel="noopener noreferrer" class="text-cyan hover:underline">github.com/ashishparihar2006</a></div>
+  <div><strong class="text-white">LinkedIn:</strong> <a href="https://linkedin.com/in/ashishparihar" target="_blank" rel="noopener noreferrer" class="text-cyan hover:underline">linkedin.com/in/ashishparihar</a></div>
   <div><strong class="text-white">Status:</strong> Open to Summer Internships &amp; Collaborations</div>
   <div class="mt-2 text-xs">
     <a href="#contact" class="text-emerald hover:underline">&gt;&gt; Open Web Transmission Form</a>
@@ -231,106 +239,73 @@
 </div>`
     },
 
-    whoami: {
-      desc: 'Print active session user',
-      exec: () => `<span class="text-cyan font-bold">ashish_parihar</span> [UID: 1000] - 1st Year CS Undergrad &amp; National Athlete (status: active)`
-    },
-
-    ls: {
-      desc: 'List directory files',
-      exec: () => `
-<div class="font-mono text-xs">
-  <span class="text-cyan">about.txt</span>        <span class="text-emerald">skills.md</span>          <span class="text-purple">projects.json</span>
-  <span class="text-amber">fencing.log</span>      <span class="text-secondary">contact.sh</span>         <span class="text-muted">LICENSE</span>
-</div>
-<div class="text-muted text-xs mt-1">Hint: Type <span class="text-cyan font-mono">cat about.txt</span> or <span class="text-cyan font-mono">cat fencing.log</span> to inspect.</div>`
-    },
-
-    cat: {
-      desc: 'Read simulated files',
-      exec: (args) => {
-        const file = (args[0] || '').toLowerCase();
-        if (file === 'about.txt') return COMMANDS.about.exec();
-        if (file === 'skills.md') return COMMANDS.skills.exec();
-        if (file === 'projects.json') return COMMANDS.projects.exec([]);
-        if (file === 'fencing.log') return COMMANDS.fencing.exec();
-        if (file === 'contact.sh') return COMMANDS.contact.exec();
-        if (!file) return `<span class="text-danger">Usage: cat &lt;filename&gt;. Try: cat about.txt</span>`;
-        return `<span class="text-danger">cat: ${file}: No such file or directory. Try 'ls' to list files.</span>`;
-      }
-    },
-
-    date: {
-      desc: 'Display current system date & time',
+    theme: {
+      desc: 'Toggle optional background canvas effects',
       exec: () => {
-        const now = new Date();
-        return `<span class="text-cyan font-mono">${now.toUTCString()} (Local: ${now.toLocaleTimeString()})</span>`;
-      }
-    },
-
-    echo: {
-      desc: 'Print arguments to terminal output',
-      exec: (args) => args.join(' ') || ''
-    },
-
-    clear: {
-      desc: 'Clear the terminal output',
-      exec: () => {
-        terminalHistory.innerHTML = '';
-        return null;
-      }
-    },
-
-    history: {
-      desc: 'Show previously executed commands',
-      exec: () => {
-        if (!commandHistoryList.length) return 'No commands in history.';
-        return commandHistoryList.map((c, i) => `<span class="text-muted">${i + 1}</span>  ${c}`).join('<br>');
-      }
-    },
-
-    matrix: {
-      desc: 'Toggle cyberpunk green matrix glitch theme',
-      exec: () => {
-        document.body.classList.toggle('matrix-mode');
-        const active = document.body.classList.contains('matrix-mode');
-        return active 
-          ? `<span class="text-emerald font-bold">[MATRIX PROTOCOL ACTIVATED] Wake up, Neo...</span>`
-          : `<span class="text-cyan">[MATRIX PROTOCOL DEACTIVATED] Restoring standard dark palette.</span>`;
+        const isCanvasDisabled = document.body.classList.toggle('canvas-disabled');
+        return isCanvasDisabled
+          ? `<span class="text-muted">[Theme] HTML5 Canvas particle background: <strong class="text-danger">DISABLED</strong>. Minimalist mode active.</span>`
+          : `<span class="text-cyan">[Theme] HTML5 Canvas particle background: <strong class="text-emerald">ENABLED</strong>.</span>`;
       }
     },
 
     sudo: {
-      desc: 'Execute command with elevated privileges',
-      exec: (args) => `
-<span class="text-danger font-bold">[SECURITY ALERT]</span> ashish is not in the sudoers file.
-This incident will be reported to Santa Claus and root administrators.`
+      desc: 'Display a harmless playful Easter egg',
+      exec: () => `
+<div class="term-output-card">
+  <span class="text-danger font-bold">[SECURITY NOTICE]</span> User 'ashish' is not in the sudoers file.
+  This incident has been logged and reported to root administration (and Santa Claus).
+</div>`
     },
 
-    exit: {
-      desc: 'Exit interactive terminal',
-      exec: () => `Session cannot be terminated. You are in read-only web view.`
+    matrix: {
+      desc: 'Toggle a lightweight Matrix-style effect',
+      exec: () => {
+        const isMatrix = document.body.classList.toggle('matrix-mode');
+        return isMatrix
+          ? `<span class="text-emerald font-bold">[MATRIX PROTOCOL INITIALIZED] Welcome to the construct, Neo.</span>`
+          : `<span class="text-cyan">[MATRIX PROTOCOL TERMINATED] Restored cyber-minimalist dark mode.</span>`;
+      }
+    },
+
+    clear: {
+      desc: 'Clear terminal output',
+      exec: () => {
+        terminalHistory.innerHTML = '';
+        return null;
+      }
     }
   };
 
-  // Print output to terminal DOM
+  // Safe DOM Rendering for output
   function printOutput(cmd, outputHtml) {
-    if (outputHtml === null) return; // For commands like 'clear'
+    if (outputHtml === null) return;
 
     const entry = document.createElement('div');
     entry.className = 'term-output-entry';
 
-    let contentHtml = '';
     if (cmd) {
-      contentHtml += `
-        <div class="term-cmd-echo">
-          <span class="text-cyan font-bold font-mono">ashish@portfolio:~$</span>
-          <span class="text-white font-mono font-bold">${escapeHtml(cmd)}</span>
-        </div>`;
+      const echoDiv = document.createElement('div');
+      echoDiv.className = 'term-cmd-echo';
+      
+      const promptSpan = document.createElement('span');
+      promptSpan.className = 'text-cyan font-bold font-mono';
+      promptSpan.textContent = 'ashish@portfolio:~$ ';
+      
+      const cmdSpan = document.createElement('span');
+      cmdSpan.className = 'text-white font-mono font-bold';
+      cmdSpan.textContent = cmd; // Strictly textContent (prevents XSS)
+
+      echoDiv.appendChild(promptSpan);
+      echoDiv.appendChild(cmdSpan);
+      entry.appendChild(echoDiv);
     }
 
-    contentHtml += `<div class="term-output-content font-mono">${outputHtml}</div>`;
-    entry.innerHTML = contentHtml;
+    const contentDiv = document.createElement('div');
+    contentDiv.className = 'term-output-content font-mono';
+    // Trusted HTML from predefined COMMANDS
+    contentDiv.innerHTML = outputHtml;
+    entry.appendChild(contentDiv);
 
     terminalHistory.appendChild(entry);
     scrollTerminalToBottom();
@@ -340,28 +315,16 @@ This incident will be reported to Santa Claus and root administrators.`
     terminalBody.scrollTop = terminalBody.scrollHeight;
   }
 
-  function escapeHtml(text) {
-    return text.replace(/[&<>"']/g, function (m) {
-      return {
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#039;'
-      }[m];
-    });
-  }
-
-  // Execute Command Logic
+  // Safe Command Execution
   function executeCommand(inputStr) {
-    const rawTrimmed = inputStr.trim();
+    const rawTrimmed = (inputStr || '').trim();
     if (!rawTrimmed) return;
 
     // Push to history
     commandHistoryList.push(rawTrimmed);
     historyIndex = commandHistoryList.length;
 
-    // Parse tokens
+    // Parse command tokens (case-insensitive command parsing)
     const tokens = rawTrimmed.split(/\s+/);
     const mainCmd = tokens[0].toLowerCase();
     const args = tokens.slice(1);
@@ -372,9 +335,11 @@ This incident will be reported to Santa Claus and root administrators.`
       const output = COMMANDS[mainCmd].exec(args);
       printOutput(rawTrimmed, output);
     } else {
+      // Safe sanitization for unknown command
+      const safeCmd = tokens[0].replace(/[^a-zA-Z0-9_-]/g, '');
       printOutput(
         rawTrimmed,
-        `<span class="text-danger">zsh: command not found: ${escapeHtml(mainCmd)}</span>. Type <span class="cmd-highlight">help</span> for valid commands.`
+        `<span class="text-danger">zsh: command not found: ${safeCmd}</span>. Type <span class="cmd-highlight">help</span> for valid commands.`
       );
     }
 
@@ -382,10 +347,22 @@ This incident will be reported to Santa Claus and root administrators.`
     scrollTerminalToBottom();
   }
 
-  // Handle Input Key Events (Enter, Up, Down, Tab)
+  // Reset Terminal
+  function resetTerminal() {
+    terminalHistory.innerHTML = '';
+    terminalInput.value = '';
+    historyIndex = commandHistoryList.length;
+    printOutput('', '<span class="text-cyan font-mono text-xs">[Terminal buffer reset to initial state. Type \'help\' for commands.]</span>');
+    terminalInput.focus();
+  }
+
+  if (termResetBtn) {
+    termResetBtn.addEventListener('click', resetTerminal);
+  }
+
+  // Keyboard navigation & autocomplete
   if (terminalInput) {
     terminalInput.addEventListener('keydown', (e) => {
-      // Mechanical typing click sound
       if (e.key !== 'Enter' && e.key !== 'ArrowUp' && e.key !== 'ArrowDown') {
         playKeyClick(false);
       }
@@ -398,7 +375,6 @@ This incident will be reported to Santa Claus and root administrators.`
         if (commandHistoryList.length > 0 && historyIndex > 0) {
           historyIndex--;
           terminalInput.value = commandHistoryList[historyIndex];
-          // Move cursor to end
           setTimeout(() => terminalInput.setSelectionRange(terminalInput.value.length, terminalInput.value.length), 0);
         }
       } else if (e.key === 'ArrowDown') {
@@ -426,7 +402,6 @@ This incident will be reported to Santa Claus and root administrators.`
       }
     });
 
-    // Keep terminal input focused when clicking anywhere in terminal body
     if (terminalBody) {
       terminalBody.addEventListener('click', () => {
         terminalInput.focus();
@@ -434,15 +409,7 @@ This incident will be reported to Santa Claus and root administrators.`
     }
   }
 
-  // Clear button in header
-  if (termClearBtn) {
-    termClearBtn.addEventListener('click', () => {
-      executeCommand('clear');
-      terminalInput.focus();
-    });
-  }
-
-  // Quick Chips Buttons
+  // Quick Chips
   quickChips.forEach((chip) => {
     chip.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -455,7 +422,7 @@ This incident will be reported to Santa Claus and root administrators.`
     });
   });
 
-  // Run in Terminal Buttons across the page (Project cards)
+  // Run in terminal buttons from project cards
   runInTermBtns.forEach((btn) => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -471,7 +438,7 @@ This incident will be reported to Santa Claus and root administrators.`
     });
   });
 
-  // Global Keyboard Shortcut: 'T' to focus terminal, 'P' for projects
+  // Global Keyboard Shortcut: 'T' to focus terminal
   window.addEventListener('keydown', (e) => {
     const isInputActive = ['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName);
     if (!isInputActive) {
@@ -479,15 +446,10 @@ This incident will be reported to Santa Claus and root administrators.`
         e.preventDefault();
         terminalWindow.scrollIntoView({ behavior: 'smooth', block: 'center' });
         terminalInput.focus();
-      } else if (e.key === 'p' || e.key === 'P') {
-        e.preventDefault();
-        const projectsSec = document.getElementById('projects');
-        if (projectsSec) projectsSec.scrollIntoView({ behavior: 'smooth' });
       }
     }
   });
 
-  // Nav terminal shortcut button
   if (navTermBtn) {
     navTermBtn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -496,9 +458,10 @@ This incident will be reported to Santa Claus and root administrators.`
     });
   }
 
-  // Expose global execution if needed
-  window.TerminalApp = {
+  // Export clean public API
+  window.PortfolioTerminal = {
     execute: executeCommand,
+    reset: resetTerminal,
     focus: () => terminalInput && terminalInput.focus()
   };
 })();

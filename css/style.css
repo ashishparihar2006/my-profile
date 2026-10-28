@@ -1,19 +1,20 @@
 /* ==========================================================================
-   ASHISH PARIHAR // PORTFOLIO DESIGN SYSTEM
-   Visual Theme: Cyber-Minimalist Dark Mode
-   Palette: Deep Charcoal (#0D0F12), Electric Cyan (#00F2FE), Neon Accents
+   ASHISH PARIHAR // PORTFOLIO DESIGN SYSTEM v2.0.0
+   Visual Theme: Cyber-Minimalist Dark Mode (WCAG 2.2 AA Compliant)
+   Palette: Background (#0D0F12), Secondary (#15191F), Electric Cyan (#00F2FE)
+   Primary Text: #F5F7FA | Secondary Text: #A5AFBD
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
    1. CSS Custom Properties & Design Tokens
    -------------------------------------------------------------------------- */
 :root {
-  /* Color Palette */
+  /* Color Palette (Phase 2 Master Prompt) */
   --bg-base: #0D0F12;
-  --bg-surface: #13171D;
-  --bg-surface-alt: #171C24;
-  --bg-surface-elevated: #1B212B;
-  --bg-card: rgba(19, 23, 29, 0.75);
+  --bg-surface: #15191F;
+  --bg-surface-alt: #1A1F27;
+  --bg-surface-elevated: #202732;
+  --bg-card: rgba(21, 25, 31, 0.85);
   
   /* Primary Cyber Accents */
   --color-cyan: #00F2FE;
@@ -27,16 +28,15 @@
   --color-amber: #FFB300;
   --color-danger: #FF3366;
 
-  /* Text & Border Tokens */
-  --text-main: #F0F4F8;
-  --text-secondary: #94A3B8;
-  --text-muted: #64748B;
-  --text-cyan: #00F2FE;
-  --border-subtle: rgba(255, 255, 255, 0.08);
+  /* Typography Colors (High Contrast AA) */
+  --text-main: #F5F7FA;
+  --text-secondary: #A5AFBD;
+  --text-muted: #718096;
+  --border-subtle: rgba(255, 255, 255, 0.09);
   --border-hover: rgba(0, 242, 254, 0.4);
   --border-active: #00F2FE;
 
-  /* Typography */
+  /* Typography Stacks */
   --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', Menlo, monospace;
@@ -50,13 +50,13 @@
   --radius-lg: 16px;
   --radius-full: 9999px;
 
-  /* Container & Spacing */
+  /* Sizing & Layout */
   --max-width: 1200px;
   --header-height: 72px;
 }
 
 /* --------------------------------------------------------------------------
-   2. Base Reset & Typography
+   2. Base Reset & Accessible Typography
    -------------------------------------------------------------------------- */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -83,7 +83,35 @@ body {
   position: relative;
 }
 
-/* Custom Cyber Monospace Selection */
+/* Accessibility Focus Ring (WCAG 2.2 AA) */
+:focus-visible {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 3px;
+}
+
+/* Skip to Content Link */
+.skip-link {
+  position: absolute;
+  top: -120px;
+  left: 1.5rem;
+  background: var(--color-cyan);
+  color: #000;
+  padding: 0.65rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  z-index: 9999;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(0, 242, 254, 0.5);
+  transition: top var(--transition-fast);
+}
+
+.skip-link:focus {
+  top: 1.5rem;
+}
+
+/* Custom Cyber Selection */
 ::selection {
   background: var(--color-cyan);
   color: #000;
@@ -137,6 +165,7 @@ h1, h2, h3, h4, h5, h6 {
 .text-cyan { color: var(--color-cyan); }
 .text-emerald { color: var(--color-emerald); }
 .text-purple { color: var(--color-purple); }
+.text-danger { color: var(--color-danger); }
 .text-muted { color: var(--text-muted); }
 .text-secondary { color: var(--text-secondary); }
 .text-white { color: #FFFFFF; }
@@ -159,6 +188,12 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 0;
   pointer-events: none;
   opacity: 0.65;
+  transition: opacity var(--transition-smooth);
+}
+
+body.canvas-disabled #cyber-canvas {
+  opacity: 0;
+  display: none;
 }
 
 /* Cyber Grid Scanlines Overlay */
@@ -168,15 +203,15 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 1;
   pointer-events: none;
   background-image: 
-    linear-gradient(rgba(0, 242, 254, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 242, 254, 0.03) 1px, transparent 1px);
+    linear-gradient(rgba(0, 242, 254, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 242, 254, 0.025) 1px, transparent 1px);
   background-size: 40px 40px;
   background-position: -1px -1px;
 }
 
 /* Top Status Announcement Bar */
 .top-status-bar {
-  background: rgba(13, 15, 18, 0.9);
+  background: rgba(13, 15, 18, 0.95);
   border-bottom: 1px solid var(--border-subtle);
   position: relative;
   z-index: 55;
@@ -196,6 +231,7 @@ h1, h2, h3, h4, h5, h6 {
   background-color: var(--color-cyan);
   box-shadow: 0 0 10px var(--color-cyan);
   display: inline-block;
+  flex-shrink: 0;
 }
 
 .status-dot.pulse {
@@ -205,6 +241,11 @@ h1, h2, h3, h4, h5, h6 {
 @keyframes pulse-dot {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.status-meta {
+  color: var(--text-secondary);
+  font-size: 0.72rem;
 }
 
 .divider {
@@ -217,7 +258,7 @@ h1, h2, h3, h4, h5, h6 {
    -------------------------------------------------------------------------- */
 .site-header {
   height: var(--header-height);
-  background: rgba(13, 15, 18, 0.85);
+  background: rgba(13, 15, 18, 0.88);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-subtle);
@@ -225,7 +266,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .site-header.scrolled {
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.65);
   border-bottom: 1px solid rgba(0, 242, 254, 0.2);
 }
 
@@ -341,6 +382,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.75rem;
   cursor: pointer;
   transition: all var(--transition-fast);
+  min-height: 38px;
 }
 
 .btn-term-shortcut:hover {
@@ -363,13 +405,13 @@ h1, h2, h3, h4, h5, h6 {
   flex-direction: column;
   justify-content: center;
   gap: 5px;
-  width: 38px;
-  height: 38px;
+  width: 44px;
+  height: 44px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
   cursor: pointer;
-  padding: 8px;
+  padding: 10px;
 }
 
 .hamburger-bar {
@@ -398,6 +440,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   background: rgba(13, 15, 18, 0.98);
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border-subtle);
   transform: translateY(-120%);
   transition: transform var(--transition-smooth);
@@ -416,10 +459,27 @@ h1, h2, h3, h4, h5, h6 {
 
 .mobile-menu-header {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid var(--border-subtle);
   padding-bottom: 0.75rem;
   margin-bottom: 1.5rem;
+}
+
+.mobile-close-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-fast);
+}
+.mobile-close-btn:hover {
+  color: var(--color-cyan);
 }
 
 .mobile-nav-links {
@@ -465,11 +525,13 @@ h1, h2, h3, h4, h5, h6 {
   transition: all var(--transition-smooth);
   border: 1px solid transparent;
   line-height: 1;
+  min-height: 44px; /* Touch accessible */
 }
 
 .btn-sm {
   padding: 0.5rem 1rem;
   font-size: 0.8rem;
+  min-height: 38px;
 }
 
 .btn-primary {
@@ -484,30 +546,15 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateY(-2px);
 }
 
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
 .btn-glow {
   position: relative;
   overflow: hidden;
-}
-
-.btn-glow::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    45deg,
-    transparent 20%,
-    rgba(255, 255, 255, 0.3) 50%,
-    transparent 80%
-  );
-  transform: rotate(30deg) translateX(-100%);
-  transition: transform 0.6s ease;
-}
-
-.btn-glow:hover::before {
-  transform: rotate(30deg) translateX(100%);
 }
 
 .btn-outline {
@@ -725,13 +772,15 @@ h1, h2, h3, h4, h5, h6 {
   border: none;
   color: var(--text-muted);
   cursor: pointer;
-  padding: 2px 5px;
+  padding: 4px 6px;
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.8rem;
   transition: all var(--transition-fast);
+  min-height: 32px;
+  min-width: 32px;
 }
 
 .term-ctrl-btn:hover {
@@ -755,17 +804,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .terminal-welcome {
   margin-bottom: 1rem;
-}
-
-.terminal-ascii-banner {
-  font-family: var(--font-mono);
-  font-size: 0.45rem;
-  line-height: 1.15;
-  color: var(--color-cyan);
-  overflow-x: hidden;
-  margin-bottom: 0.75rem;
-  opacity: 0.9;
-  text-shadow: 0 0 10px rgba(0, 242, 254, 0.4);
 }
 
 .cmd-highlight {
@@ -856,12 +894,13 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid rgba(0, 242, 254, 0.2);
   color: var(--text-secondary);
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  padding: 0.25rem 0.6rem;
+  font-size: 0.75rem;
+  padding: 0.35rem 0.7rem;
   border-radius: var(--radius-sm);
   cursor: pointer;
   white-space: nowrap;
   transition: all var(--transition-fast);
+  min-height: 34px;
 }
 
 .cmd-chip:hover {
@@ -881,8 +920,21 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 0 10px var(--color-danger);
 }
 
+/* Matrix Mode Easter Egg */
+body.matrix-mode {
+  --color-cyan: #00FF66;
+  --color-cyan-glow: rgba(0, 255, 102, 0.35);
+  --color-cyan-dim: rgba(0, 255, 102, 0.15);
+  --border-hover: rgba(0, 255, 102, 0.5);
+  --border-active: #00FF66;
+}
+body.matrix-mode .terminal-window {
+  border-color: #00FF66;
+  box-shadow: 0 0 35px rgba(0, 255, 102, 0.3);
+}
+
 /* --------------------------------------------------------------------------
-   7. Spotlight Cards & Glow Borders (Apple / Linear Glow Effect)
+   7. Spotlight Cards & Glow Borders (Linear / Apple Tier)
    -------------------------------------------------------------------------- */
 .spotlight-card {
   position: relative;
@@ -929,7 +981,7 @@ h1, h2, h3, h4, h5, h6 {
    8. Section Headers
    -------------------------------------------------------------------------- */
 .section-header {
-  margin-bottom: 3.5rem;
+  margin-bottom: 3rem;
 }
 
 .section-tag {
@@ -998,7 +1050,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* --------------------------------------------------------------------------
-   10. Skills Section Styles
+   10. Skills Section & Code Snippets
    -------------------------------------------------------------------------- */
 .skills-grid {
   display: grid;
@@ -1071,6 +1123,7 @@ h1, h2, h3, h4, h5, h6 {
   border-color: rgba(255, 255, 255, 0.15);
 }
 
+/* Code Snippet Box with Functional Copy Button */
 .code-snippet-box {
   background: #090B0E;
   border: 1px solid var(--border-subtle);
@@ -1080,7 +1133,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .code-head {
   background: #11141A;
-  padding: 0.35rem 0.75rem;
+  padding: 0.4rem 0.75rem;
   border-bottom: 1px solid var(--border-subtle);
   display: flex;
   justify-content: space-between;
@@ -1088,15 +1141,78 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text-muted);
 }
 
+.badge-demo {
+  color: var(--color-cyan);
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+  margin-left: 0.25rem;
+}
+
+.btn-copy-code {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-copy-code:hover {
+  background: var(--color-cyan-dim);
+  border-color: var(--color-cyan);
+  color: var(--color-cyan);
+}
+
+.btn-copy-code.copied {
+  background: rgba(0, 245, 160, 0.15);
+  border-color: var(--color-emerald);
+  color: var(--color-emerald);
+}
+
 .code-snippet-box pre {
-  padding: 0.75rem;
+  padding: 0.85rem;
   overflow-x: auto;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 /* --------------------------------------------------------------------------
-   11. Featured Projects Section Styles
+   11. Featured Projects & Interactive Filter Controls
    -------------------------------------------------------------------------- */
+.project-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.filter-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  min-height: 38px;
+}
+
+.filter-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #FFFFFF;
+}
+
+.filter-btn.active {
+  background: var(--color-cyan-dim);
+  border-color: var(--color-cyan);
+  color: var(--color-cyan);
+  box-shadow: 0 0 12px var(--color-cyan-glow);
+}
+
 .projects-list {
   display: flex;
   flex-direction: column;
@@ -1105,6 +1221,11 @@ h1, h2, h3, h4, h5, h6 {
 
 .project-card {
   border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.project-card.filtered-out {
+  display: none;
 }
 
 .project-content-grid {
@@ -1132,7 +1253,7 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: 0.1em;
 }
 
-.project-version {
+.project-status {
   font-size: 0.75rem;
 }
 
@@ -1368,6 +1489,32 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.95rem;
 }
 
+.btn-copy-mini {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-copy-mini:hover {
+  background: var(--color-cyan-dim);
+  border-color: var(--color-cyan);
+  color: var(--color-cyan);
+}
+
+.btn-copy-mini.copied {
+  background: rgba(0, 245, 160, 0.15);
+  border-color: var(--color-emerald);
+  color: var(--color-emerald);
+}
+
 /* Custom Social Pills with Smooth Hover States */
 .social-pills-flex {
   display: flex;
@@ -1388,6 +1535,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-mono);
   font-size: 0.85rem;
   transition: all var(--transition-smooth);
+  min-height: 48px; /* Accessible touch target */
 }
 
 .social-pill .pill-icon {
@@ -1453,12 +1601,24 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0.75rem 1rem;
   transition: all var(--transition-fast);
   outline: none;
+  min-height: 44px;
 }
 
 .form-input:focus {
   border-color: var(--color-cyan);
   box-shadow: 0 0 16px rgba(0, 242, 254, 0.2);
   background: #0D1016;
+}
+
+.form-input.is-invalid {
+  border-color: var(--color-danger);
+  box-shadow: 0 0 12px rgba(255, 51, 102, 0.2);
+}
+
+.field-error-msg {
+  color: var(--color-danger);
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
 }
 
 .form-input::placeholder {
@@ -1472,6 +1632,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .form-feedback {
   margin-top: 1rem;
+  line-height: 1.6;
 }
 
 .form-feedback.success {
@@ -1484,6 +1645,12 @@ h1, h2, h3, h4, h5, h6 {
   background: rgba(255, 51, 102, 0.1);
   border: 1px solid rgba(255, 51, 102, 0.3);
   color: var(--color-danger);
+}
+
+.form-feedback.info {
+  background: rgba(0, 242, 254, 0.1);
+  border: 1px solid rgba(0, 242, 254, 0.3);
+  color: var(--color-cyan);
 }
 
 /* --------------------------------------------------------------------------
@@ -1515,6 +1682,7 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: var(--radius-sm);
   cursor: pointer;
   transition: all var(--transition-fast);
+  min-height: 40px;
 }
 
 .btn-back-to-top:hover {
@@ -1567,10 +1735,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .w-3\.5 { width: 0.875rem; height: 0.875rem; }
 .w-4 { width: 1rem; height: 1rem; }
+.w-5 { width: 1.25rem; height: 1.25rem; }
 .w-6 { width: 1.5rem; height: 1.5rem; }
 .w-7 { width: 1.75rem; height: 1.75rem; }
 .w-8 { width: 2rem; height: 2rem; }
 .h-4 { height: 1rem; }
+.h-5 { height: 1.25rem; }
 .h-6 { height: 1.5rem; }
 .h-7 { height: 1.75rem; }
 .h-8 { height: 2rem; }
@@ -1581,7 +1751,25 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* --------------------------------------------------------------------------
-   16. Media Queries & Responsive Layout Breakpoints
+   16. Reduced Motion Mode (Accessibility WCAG 2.2)
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .spotlight-card:hover {
+    transform: none !important;
+  }
+  .btn-primary:hover, .btn-outline:hover, .social-pill:hover {
+    transform: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   17. Media Queries & Responsive Layout Breakpoints
    -------------------------------------------------------------------------- */
 @media (max-width: 1024px) {
   .hero-grid {
@@ -1661,11 +1849,23 @@ h1, h2, h3, h4, h5, h6 {
     gap: 1.5rem;
   }
 
-  .terminal-ascii-banner {
-    display: none; /* Hide wide ASCII art on narrow mobile screens for clean UI */
+  .terminal-window {
+    height: 440px;
   }
 
-  .terminal-window {
-    height: 420px;
+  .card-inner, .about-main-card .card-inner, .project-info, .medal-card .card-inner, .parallels-card .card-inner, .contact-meta-card .card-inner, .form-container-card .card-inner {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .hero-title {
+    font-size: 1.95rem;
+  }
+  .btn {
+    width: 100%;
+  }
+  .hero-actions {
+    flex-direction: column;
   }
 }
